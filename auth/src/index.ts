@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-async-errors';
 import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
 import { json } from 'body-parser';
@@ -9,7 +10,6 @@ import { singupRouter } from './routes/singup';
 import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-error';
 
-require('express-async-errors');
 
 const app = express();
 app.set('trust proxy', true);
