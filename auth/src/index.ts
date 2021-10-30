@@ -5,11 +5,10 @@ import cookieSession from 'cookie-session';
 import { json } from 'body-parser';
 import { currentUserRouter } from './routes/current-user';
 import { signinRouter } from './routes/signin';
-import { singoutRouter } from './routes/singout';
 import { singupRouter } from './routes/singup';
 import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-error';
-
+import { signoutRouter } from './routes/signout';
 
 const app = express();
 app.set('trust proxy', true);
@@ -22,9 +21,10 @@ app.use(
 );
 app.use(signinRouter);
 app.use(currentUserRouter);
-app.use(singoutRouter);
+app.use(signoutRouter);
 app.use(singupRouter);
-app.get('*', async () => {
+
+app.all('*', async () => {
   throw new NotFoundError();
 });
 
