@@ -1,16 +1,16 @@
-import {CustomError} from "./custom-error";
+import CustomError from './custom-error';
 
 export class NotFoundError extends CustomError {
-    statusCode = 404
+  statusCode = 404;
 
-    constructor() {
-        super('Route not found log');
+  constructor() {
+    super('Route not found log');
 
-        Object.setPrototypeOf(this, NotFoundError.prototype)
-    }
+    Object.setPrototypeOf(this, NotFoundError.prototype);
+  }
 
-    serializeErrors(): { message: string; field?: string }[] {
-        return [{message: 'Rout not found'}];
-    }
-
+  // eslint-disable-next-line
+  serializeErrors(): { message: string; field?: string }[] {
+    return [{ message: 'Rout not found' }];
+  }
 }

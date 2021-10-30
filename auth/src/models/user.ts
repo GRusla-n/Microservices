@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
-import {Password} from "../services/password";
+import mongoose from 'mongoose';
+import { Password } from '../services/password';
 
 interface UserAttrs {
     email: string,
@@ -7,24 +7,35 @@ interface UserAttrs {
 }
 
 const userSchema = new mongoose.Schema<UserAttrs>({
-    email: {
-        type: String,
-        required: true,
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+}, {
+  toJSON: {
+    transform(doc, ret) {
+      /* eslint-disable */
+      ret.id = ret._id;
+      delete ret.password;
+      delete ret.__v;
+      delete ret._id;
+      /* eslint-enable */
     },
-    password: {
-        type: String,
-        required: true,
-    },
-})
+  },
+});
 
 userSchema.pre('save', async function (done) {
-    if (this.isModified('password')) {
-        const hashed = await Password.toHash(this.get('password'))
-        this.set('password', hashed)
-    }
-    done()
-})
+  if (this.isModified('password')) {
+    const hashed = await Password.toHash(this.get('password'));
+    this.set('password', hashed);
+  }
+  done();
+});
 
-const User = mongoose.model<UserAttrs>('User', userSchema)
+const User = mongoose.model<UserAttrs>('User', userSchema);
 
-export {User}
+export { User };

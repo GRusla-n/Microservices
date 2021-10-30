@@ -1,53 +1,45 @@
-import express, {Request, Response} from "express";
-import {body, validationResult} from 'express-validator'
-import jwt from 'jsonwebtoken'
-import {RequestValidationErrors} from "../errors/request-validation-errors";
-import {User} from "../models/user";
-import {BadRequestError} from "../errors/bad-request-error";
+import express, { Request, Response } from 'express';
+import { body } from 'express-validator';
+import jwt from 'jsonwebtoken';
+import { User } from '../models/user';
+import { BadRequestError } from '../errors/bad-request-error';
+import { validateRequest } from '../middlewares/validate-request';
 
 const router = express.Router();
 
-router.post('/api/users/singup', [
-    body('email')
-        .isEmail()
-        .withMessage('Email must be valid'),
-    body('password')
-        .trim()
-        .isLength({min: 4, max: 20})
-        .withMessage('Min 4, max 20')
-], async (req: Request, res: Response) => {
-    const errors = validationResult(req)
+router.post('/api/users/signup', [
+  body('email')
+    .isEmail()
+    .withMessage('Email must be valid'),
+  body('password')
+    .trim()
+    .isLength({ min: 4, max: 20 })
+    .withMessage('Min 4, max 20'),
+], validateRequest, async (req: Request, res: Response) => {
+  const { email, password } = req.body;
 
-    if (!errors.isEmpty()) {
-        throw new RequestValidationErrors(errors.array())
-    }
+  const existingUser = await User.findOne({ email });
 
-    const {email, password} = req.body
+  if (existingUser) {
+    throw new BadRequestError('Email in use');
+  }
 
-    const existingUser = await User.findOne({email})
+  const user = new User({
+    email,
+    password,
+  });
+  await user.save();
 
-    if (existingUser) {
-        throw new BadRequestError('Email in use')
-    }
+  const userJwt = jwt.sign({
+    id: user.id,
+    email: user.email,
+  }, process.env.JWT_KEY!);
 
-    const user = new User({
-        email: email,
-        password: password
-    })
-    await user.save()
+  req.session = {
+    jwt: userJwt,
+  };
 
-    const userJwt = jwt.sign({
-        id: user.id,
-        email: user.email
-    }, 'ttt')
+  res.status(201).send(user);
+});
 
-    req.session = {
-        jwt: userJwt
-    }
-
-    res.status(201).send(user)
-
-})
-
-export {router as singupRouter}
-
+export { router as singupRouter };
