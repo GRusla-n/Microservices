@@ -13,10 +13,16 @@ router.post('/api/users/signup', [
     .withMessage('Email must be valid'),
   body('password')
     .trim()
-    .isLength({ min: 4, max: 20 })
+    .isLength({
+      min: 4,
+      max: 20,
+    })
     .withMessage('Min 4, max 20'),
 ], validateRequest, async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const {
+    email,
+    password,
+  } = req.body;
 
   const existingUser = await User.findOne({ email });
 
@@ -39,7 +45,8 @@ router.post('/api/users/signup', [
     jwt: userJwt,
   };
 
-  res.status(201).send(user);
+  res.status(201)
+    .send(user);
 });
 
-export { router as singupRouter };
+export { router as signupRouter };
