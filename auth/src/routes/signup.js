@@ -49,10 +49,10 @@ var validate_request_1 = require("../middlewares/validate-request");
 var router = express_1.default.Router();
 exports.signupRouter = router;
 router.post('/api/users/signup', [
-    (0, express_validator_1.body)('email')
+    express_validator_1.body('email')
         .isEmail()
         .withMessage('Email must be valid'),
-    (0, express_validator_1.body)('password')
+    express_validator_1.body('password')
         .trim()
         .isLength({
         min: 4,

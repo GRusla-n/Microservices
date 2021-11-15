@@ -50,10 +50,10 @@ var password_1 = require("../services/password");
 var router = express_1.default.Router();
 exports.signinRouter = router;
 router.post('/api/users/signin', [
-    (0, express_validator_1.body)('email')
+    express_validator_1.body('email')
         .isEmail()
         .withMessage('Email must be valid'),
-    (0, express_validator_1.body)('password')
+    express_validator_1.body('password')
         .trim()
         .isLength({
         min: 4,

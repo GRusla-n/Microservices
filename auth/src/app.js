@@ -50,11 +50,11 @@ var error_handler_1 = require("./middlewares/error-handler");
 var not_found_error_1 = require("./errors/not-found-error");
 var signout_1 = require("./routes/signout");
 var signup_1 = require("./routes/signup");
-var app = (0, express_1.default)();
+var app = express_1.default();
 exports.app = app;
 app.set('trust proxy', true);
-app.use((0, body_parser_1.json)());
-app.use((0, cookie_session_1.default)({
+app.use(body_parser_1.json());
+app.use(cookie_session_1.default({
     signed: false,
     secure: process.env.NODE_ENV !== 'test',
 }));

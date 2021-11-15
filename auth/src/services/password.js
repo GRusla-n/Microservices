@@ -39,7 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Password = void 0;
 var crypto_1 = require("crypto");
 var util_1 = require("util");
-var scryptAsync = (0, util_1.promisify)(crypto_1.scrypt);
+var scryptAsync = util_1.promisify(crypto_1.scrypt);
 var Password = /** @class */ (function () {
     function Password() {
     }
@@ -49,7 +49,7 @@ var Password = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        salt = (0, crypto_1.randomBytes)(8).toString('hex');
+                        salt = crypto_1.randomBytes(8).toString('hex');
                         return [4 /*yield*/, scryptAsync(password, salt, 64)];
                     case 1:
                         buf = (_a.sent());

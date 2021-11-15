@@ -44,7 +44,7 @@ var app_1 = require("../../app");
 it('fails when a email than does not exist is supplied', function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, (0, supertest_1.default)(app_1.app)
+            case 0: return [4 /*yield*/, supertest_1.default(app_1.app)
                     .post('/api/users/signin')
                     .send({
                     email: 'test@gmail.com',
@@ -60,7 +60,7 @@ it('fails when a email than does not exist is supplied', function () { return __
 it('fails when an incorrect password is supplied', function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, (0, supertest_1.default)(app_1.app)
+            case 0: return [4 /*yield*/, supertest_1.default(app_1.app)
                     .post('/api/users/signup')
                     .send({
                     email: 'test@test.com',
@@ -69,7 +69,7 @@ it('fails when an incorrect password is supplied', function () { return __awaite
                     .expect(201)];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, (0, supertest_1.default)(app_1.app)
+                return [4 /*yield*/, supertest_1.default(app_1.app)
                         .post('/api/users/signin')
                         .send({
                         email: 'test@test.com',

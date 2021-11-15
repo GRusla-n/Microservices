@@ -43,7 +43,7 @@ var supertest_1 = __importDefault(require("supertest"));
 var app_1 = require("../../app");
 it('return a 201 on successful signup', function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        return [2 /*return*/, (0, supertest_1.default)(app_1.app)
+        return [2 /*return*/, supertest_1.default(app_1.app)
                 .post('/api/users/signup')
                 .send({
                 email: 'test@gmail.com',
@@ -54,7 +54,7 @@ it('return a 201 on successful signup', function () { return __awaiter(void 0, v
 }); });
 it('return a 400 with an invalid email', function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        return [2 /*return*/, (0, supertest_1.default)(app_1.app)
+        return [2 /*return*/, supertest_1.default(app_1.app)
                 .post('/api/users/signup')
                 .send({
                 email: 'test@gmailcom',
@@ -65,7 +65,7 @@ it('return a 400 with an invalid email', function () { return __awaiter(void 0, 
 }); });
 it('return a 400 with an invalid password', function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        return [2 /*return*/, (0, supertest_1.default)(app_1.app)
+        return [2 /*return*/, supertest_1.default(app_1.app)
                 .post('/api/users/signup')
                 .send({
                 email: 'test@gmail.com',
@@ -77,7 +77,7 @@ it('return a 400 with an invalid password', function () { return __awaiter(void 
 it('disallows duplicate emails', function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, (0, supertest_1.default)(app_1.app)
+            case 0: return [4 /*yield*/, supertest_1.default(app_1.app)
                     .post('/api/users/signup')
                     .send({
                     email: 'test@gmail.com',
@@ -86,7 +86,7 @@ it('disallows duplicate emails', function () { return __awaiter(void 0, void 0, 
                     .expect(201)];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, (0, supertest_1.default)(app_1.app)
+                return [4 /*yield*/, supertest_1.default(app_1.app)
                         .post('/api/users/signup')
                         .send({
                         email: 'test@gmail.com',
@@ -103,7 +103,7 @@ it('sets a cookie after successful signup', function () { return __awaiter(void 
     var response;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, (0, supertest_1.default)(app_1.app)
+            case 0: return [4 /*yield*/, supertest_1.default(app_1.app)
                     .post('/api/users/signup')
                     .send({
                     email: 'test@gmail.com',
