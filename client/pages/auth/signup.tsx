@@ -56,7 +56,7 @@ const Signup: FC = () => {
         <FormWrapper>
           <Typography variant="h3" className={styles.wrapper}>Sign Up</Typography>
           <OutlinedInput
-            error={errors.some(({ field }) => field === 'email')}
+            error={errors?.some(({ field }) => field === 'email')}
             placeholder="Email"
             value={email}
             onChange={event => setEmail(event.target.value)}
@@ -68,7 +68,7 @@ const Signup: FC = () => {
             }
           })}
           <OutlinedInput
-            error={errors.some(({ field }) => field === 'password')}
+            error={errors?.some(({ field }) => field === 'password')}
             placeholder="Password"
             value={password}
             onChange={event => setPassword(event.target.value)}
