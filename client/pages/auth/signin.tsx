@@ -1,9 +1,10 @@
-import { Button, OutlinedInput, Paper, styled, Typography } from '@mui/material';
-import { FC, useState } from 'react';
+import { Button, OutlinedInput, styled, Typography } from '@mui/material';
+import React, { FC, useState } from 'react';
 import styles from '../../styles/Signup.module.css';
 import axios from 'axios';
 import BGImage from '../../components/BGImage';
 import Router from 'next/router';
+import Link from 'next/link';
 
 const Root = styled('div')({
   display: 'flex',
@@ -28,7 +29,7 @@ type Error = {
   field: string,
 }
 
-const Signup: FC = () => {
+const Signin: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<Error[]>([]);
@@ -36,14 +37,12 @@ const Signup: FC = () => {
   const onSubmit = async () => {
 
     try {
-      await axios.post('/api/users/signup', {
+      await axios.post('/api/users/signin', {
         email,
         password
       });
-
       Router.push('/');
     } catch (error) {
-      console.log(error.response.data);
       setErrors(error.response.data.errors);
     }
 
@@ -53,7 +52,7 @@ const Signup: FC = () => {
     <>
       <Root>
         <FormWrapper>
-          <Typography variant="h3" className={styles.wrapper}>Sign Up</Typography>
+          <Typography variant="h3" className={styles.wrapper}>Sign in</Typography>
           <OutlinedInput
             error={errors?.some(({ field }) => field === 'email')}
             placeholder="Email"
@@ -79,7 +78,8 @@ const Signup: FC = () => {
               return <Typography variant="error" key={err.field}>{err.message}</Typography>;
             }
           })}
-          <Button onClick={onSubmit}>Sign Up</Button>
+          <Button onClick={onSubmit}>Sign in</Button>
+          <Link href="/auth/signup">Sign up </Link>
         </FormWrapper>
       </Root>
       <BGImage/>
@@ -87,4 +87,4 @@ const Signup: FC = () => {
   );
 };
 
-export default Signup;
+export default Signin;
